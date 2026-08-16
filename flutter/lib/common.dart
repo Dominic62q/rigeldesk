@@ -68,6 +68,23 @@ int androidVersion = 0;
 /// remain unchanged so the connection and bridge layers are not affected.
 const String kProductName = 'RigelDesk';
 
+/// Self-hosted server defaults for RigelDesk builds.
+///
+/// Build-time defines allow a deployment to use a DNS name without changing
+/// source. Existing user-configured server settings always take precedence.
+const String kRigelDeskDefaultIdServer = String.fromEnvironment(
+  'RIGELDESK_ID_SERVER',
+  defaultValue: '13.140.136.228',
+);
+const String kRigelDeskDefaultRelayServer = String.fromEnvironment(
+  'RIGELDESK_RELAY_SERVER',
+  defaultValue: '13.140.136.228:21117',
+);
+const String kRigelDeskDefaultServerKey = String.fromEnvironment(
+  'RIGELDESK_SERVER_KEY',
+  defaultValue: 'XHkd3EoTRRZxHvFOozfgFY5nr6k4e3o+r4CuX+QsX7U=',
+);
+
 // Only used on Linux.
 // `windowManager.setResizable(false)` will reset the window size to the default size on Linux.
 // https://stackoverflow.com/questions/8193613/gtk-window-resize-disable-without-going-back-to-default
@@ -1659,6 +1676,38 @@ Future<void> initGlobalFFI() async {
   debugPrint("_globalFFI init end");
   // after `put`, can also be globally found by Get.find<FFI>();
   Get.put<FFI>(_globalFFI, permanent: true);
+}
+
+/// Provision the self-hosted server on a fresh RigelDesk installation.
+///
+/// The engine remains responsible for storing the options and restarting its
+/// rendezvous connection. We only supply defaults when no server is set.
+Future<void> configureRigelDeskServerDefaults() async {
+  if (isWeb ||
+      kRigelDeskDefaultIdServer.isEmpty ||
+      kRigelDeskDefaultServerKey.isEmpty) {
+    return;
+  }
+
+  final currentIdServer =
+      (await bind.mainGetOption(key: 'custom-rendezvous-server')).trim();
+  final currentRelayServer =
+      (await bind.mainGetOption(key: 'relay-server')).trim();
+  final currentKey = (await bind.mainGetOption(key: 'key')).trim();
+  if (currentIdServer.isNotEmpty ||
+      currentRelayServer.isNotEmpty ||
+      currentKey.isNotEmpty) {
+    return;
+  }
+
+  // Set the key and relay before the ID server so the final option update can
+  // restart the rendezvous connection with the complete configuration.
+  await bind.mainSetOption(
+      key: 'key', value: kRigelDeskDefaultServerKey.trim());
+  await bind.mainSetOption(
+      key: 'relay-server', value: kRigelDeskDefaultRelayServer.trim());
+  await bind.mainSetOption(
+      key: 'custom-rendezvous-server', value: kRigelDeskDefaultIdServer.trim());
 }
 
 String translate(String name) {

@@ -124,6 +124,7 @@ Future<void> initEnv(String appType) async {
   // for convenience, use global FFI on mobile platform
   // focus on multi-ffi on desktop first
   await initGlobalFFI();
+  await configureRigelDeskServerDefaults();
   // await Firebase.initializeApp();
   _registerEventHandler();
   // Update the system theme.
