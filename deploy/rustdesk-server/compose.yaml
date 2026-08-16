@@ -1,0 +1,27 @@
+services:
+  hbbs:
+    container_name: rigeldesk-hbbs
+    image: ${RUSTDESK_SERVER_IMAGE:-rustdesk/rustdesk-server:latest}
+    command:
+      - hbbs
+      - -r
+      - ${RUSTDESK_PUBLIC_HOST:?Set RUSTDESK_PUBLIC_HOST in .env}:21117
+    environment:
+      RUST_LOG: ${RUST_LOG:-info}
+    volumes:
+      - ${RUSTDESK_DATA_DIR:-./data}:/root
+    network_mode: host
+    depends_on:
+      - hbbr
+    restart: unless-stopped
+
+  hbbr:
+    container_name: rigeldesk-hbbr
+    image: ${RUSTDESK_SERVER_IMAGE:-rustdesk/rustdesk-server:latest}
+    command: ["hbbr"]
+    environment:
+      RUST_LOG: ${RUST_LOG:-info}
+    volumes:
+      - ${RUSTDESK_DATA_DIR:-./data}:/root
+    network_mode: host
+    restart: unless-stopped
