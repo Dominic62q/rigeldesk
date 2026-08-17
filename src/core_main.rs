@@ -29,6 +29,7 @@ macro_rules! my_println{
 /// If it returns [`Some`], then the process will continue, and flutter gui will be started.
 #[cfg(not(any(target_os = "android", target_os = "ios")))]
 pub fn core_main() -> Option<Vec<String>> {
+    crate::common::initialize_app_identity();
     if !crate::common::global_init() {
         return None;
     }
