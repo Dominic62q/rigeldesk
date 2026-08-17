@@ -55,6 +55,18 @@ pub type NotifyMessageBox = fn(String, String, String, String) -> dyn Future<Out
 // the executable name of the portable version
 pub const PORTABLE_APPNAME_RUNTIME_ENV_KEY: &str = "RUSTDESK_APPNAME";
 
+/// The branded application identity used by all local configuration, IPC,
+/// service, tray, and URI paths. Keep this in the application crate so a
+/// normal checkout does not depend on a modified hbb_common submodule.
+pub const RIGELDESK_APP_NAME: &str = "RigelDesk";
+
+pub fn initialize_app_identity() {
+    let mut app_name = config::APP_NAME.write().unwrap();
+    if app_name.as_str() == "RustDesk" {
+        *app_name = RIGELDESK_APP_NAME.to_owned();
+    }
+}
+
 pub const PLATFORM_WINDOWS: &str = "Windows";
 pub const PLATFORM_LINUX: &str = "Linux";
 pub const PLATFORM_MACOS: &str = "Mac OS";

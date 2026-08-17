@@ -92,9 +92,9 @@ BEGIN
             VALUE "CompanyName", "Rigelis Inc." "\0"
             VALUE "FileDescription", "RigelDesk Remote Workspace" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "rustdesk" "\0"
+            VALUE "InternalName", "RigelDesk" "\0"
             VALUE "LegalCopyright", "Copyright © 2026 Rigelis Inc. All rights reserved." "\0"
-            VALUE "OriginalFilename", "rustdesk.exe" "\0"
+            VALUE "OriginalFilename", "RigelDesk.exe" "\0"
             VALUE "ProductName", "RigelDesk" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END

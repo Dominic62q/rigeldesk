@@ -7,6 +7,7 @@ use librustdesk::*;
 
 #[cfg(any(target_os = "android", target_os = "ios", feature = "flutter"))]
 fn main() {
+    common::initialize_app_identity();
     if !common::global_init() {
         eprintln!("Global initialization failed.");
         return;
