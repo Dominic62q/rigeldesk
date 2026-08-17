@@ -1290,7 +1290,10 @@ pub fn lock_screen() {
     }
 }
 
-const IS1: &str = "{54E86BC2-6C85-41F3-A9EB-1A94AC9B1F93}_is1";
+// Inno Setup writes its uninstall details under `{AppId}_is1`. Keep this in
+// sync with deploy/rigeldesk.iss so the engine recognises the packaged app as
+// installed instead of offering RustDesk's legacy in-app installer.
+const IS1: &str = "{A6FB9F88-4DB4-44A9-9A87-E8E8B4877AC9}_is1";
 
 fn get_subkey(name: &str, wow: bool) -> String {
     let tmp = format!(
