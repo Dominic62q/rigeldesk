@@ -414,7 +414,7 @@ class MyTheme {
       backgroundColor: Color(0xFFF8F9FC),
       foregroundColor: navy,
     ),
-    dialogTheme: DialogTheme(
+    dialogTheme: DialogThemeData(
       elevation: 10,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
@@ -458,7 +458,7 @@ class MyTheme {
     cardColor: Colors.white,
     hintColor: Color(0xFF7D879A),
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    tabBarTheme: const TabBarTheme(
+    tabBarTheme: const TabBarThemeData(
       labelColor: Colors.black87,
     ),
     tooltipTheme: tooltipTheme(),
@@ -533,7 +533,7 @@ class MyTheme {
       backgroundColor: Color(0xFF101522),
       foregroundColor: Colors.white,
     ),
-    dialogTheme: DialogTheme(
+    dialogTheme: DialogThemeData(
       elevation: 10,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
@@ -576,7 +576,7 @@ class MyTheme {
     ),
     cardColor: Color(0xFF1B2435),
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    tabBarTheme: const TabBarTheme(
+    tabBarTheme: const TabBarThemeData(
       labelColor: Colors.white70,
     ),
     tooltipTheme: tooltipTheme(),
